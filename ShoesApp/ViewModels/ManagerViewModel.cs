@@ -18,7 +18,7 @@ public partial class ManagerViewModel: ObservableObject
     [ObservableProperty] private string _selectedSort = "Без сортировки";
     
     public ObservableCollection<Product> Products { get; } = new();
-    public ObservableCollection<Order> Orders { get; } = new();
+    public ObservableCollection<OrderProduct> OrderProducts { get; } = new();
     public ObservableCollection<Category> Categories { get; } = new();
     public List<string> SortOptions { get; } = ["Без сортировки", "Цена по возрастанию", "Цена по убыванию"];
     [ObservableProperty] private string _currentUserName = "";
@@ -49,15 +49,19 @@ public partial class ManagerViewModel: ObservableObject
     
        private void LoadOrders()
         {
-            Orders.Clear();
+            OrderProducts.Clear();
             
             foreach (var p in _db.Orders
                          .Include(p => p.PickupPoint)
                          .Include(p => p.User)
                          .Include(p => p.OrdersProducts)
+                         .ThenInclude(pp => pp.Product)
                          .ToList())
             {
-                Orders.Add(p);
+                foreach (var op in p.OrdersProducts)
+                {
+                    OrderProducts.Add(op);
+                }
             }
         }
        
