@@ -38,6 +38,8 @@ public partial class AdminViewModel: ObservableObject
 
     private void LoadProducts()
     {
+        _db.ChangeTracker.Clear();  
+        
         _allProducts = _db.Products
             .Include(p => p.Unit)
             .Include(p => p.Supplier)

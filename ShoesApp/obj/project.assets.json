@@ -3122,24 +3122,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kosyr\\.nuget\\packages\\": {}
+    "C:\\Users\\GM50\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kosyr\\RiderProjects\\ShoesApp\\ShoesApp\\ShoesApp.csproj",
+      "projectUniqueName": "C:\\Users\\GM50\\RiderProjects\\play-repo\\ShoesApp\\ShoesApp.csproj",
       "projectName": "ShoesApp",
-      "projectPath": "C:\\Users\\kosyr\\RiderProjects\\ShoesApp\\ShoesApp\\ShoesApp.csproj",
-      "packagesPath": "C:\\Users\\kosyr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kosyr\\RiderProjects\\ShoesApp\\ShoesApp\\obj\\",
+      "projectPath": "C:\\Users\\GM50\\RiderProjects\\play-repo\\ShoesApp\\ShoesApp.csproj",
+      "packagesPath": "C:\\Users\\GM50\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\GM50\\RiderProjects\\play-repo\\ShoesApp\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\kosyr\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\GM50\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3158,7 +3165,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net10.0-windows7.0": {
@@ -3202,7 +3209,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\kosyr\\.dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Users\\GM50\\.dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
