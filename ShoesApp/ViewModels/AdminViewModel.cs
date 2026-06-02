@@ -16,6 +16,7 @@ public partial class AdminViewModel: ObservableObject
     [ObservableProperty] private string _searchText = "";
     [ObservableProperty] private Category _selectedCategory;
     [ObservableProperty] private string _selectedSort = "Без сортировки";
+    [ObservableProperty] private Product _selectedProduct;
 
     public ObservableCollection<Product> Products { get; } = new();
     public ObservableCollection<OrderProduct> OrderProducts { get; } = new();
@@ -44,6 +45,7 @@ public partial class AdminViewModel: ObservableObject
             .Include(p => p.Category)
             .ToList();
 
+        SelectedProduct = null;
         Filter();
     }
     
@@ -120,6 +122,45 @@ public partial class AdminViewModel: ObservableObject
         {
             Products.Add(p);
         }
+    }
+
+    [RelayCommand]
+    private void OpenCreateProductWindow()
+    {
+        var createProductWindow = new CreateProductWindow();
+        var vm = new CreateProductViewModel(() => LoadProducts());
+        createProductWindow.DataContext = vm;
+        createProductWindow.ShowDialog();
+    }
+    
+    [RelayCommand]
+    private void OpenUpdateProductWindow()
+    {
+        if (SelectedProduct == null)
+        {
+            MessageBox.Show("Выберите товар для редактирования");
+            return;
+        }
+        
+        var updateProductWindow = new UpdateProductWindow();
+        var vm = new UpdateProductViewModel(() => LoadProducts(), SelectedProduct);
+        updateProductWindow.DataContext = vm;
+        updateProductWindow.ShowDialog();
+    }
+    
+    [RelayCommand]
+    private void DeleteProduct()
+    {
+        if (SelectedProduct == null)
+        {
+            MessageBox.Show("Выберите товар для удаления");
+            return;
+        }
+
+        _db.Products.Remove(SelectedProduct);
+        _db.SaveChanges();
+
+        LoadProducts();
     }
     
 }

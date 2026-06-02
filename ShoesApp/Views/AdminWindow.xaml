@@ -50,10 +50,17 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                    
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Button Content="Создать" Command="{Binding OpenCreateProductWindowCommand}"/>
+                        <Button Content="Редактировать" Command="{Binding OpenUpdateProductWindowCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteProductCommand}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Width="250"/>
                        
                         <ComboBox 
@@ -69,90 +76,87 @@
                     </StackPanel>
                    
                     <ListBox 
-                                                   Grid.Row="1"
-                                                   ItemsSource="{Binding Products}"
-                                                   Background="White"
-                                                   HorizontalContentAlignment="Stretch"
-                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                   >
-                                                   <ListBox.ItemTemplate>
-                                                       <DataTemplate>
-                                                           <Border
-                                                               BorderBrush="Gray"
-                                                               BorderThickness="1"
-                                                               Margin="4"
-                                                               Padding="6"
-                                                               Background="{Binding Converter={StaticResource RawBackgroundConverter}}"
-                                                               >
-                                                               <Grid>
-                                                                   <Grid.ColumnDefinitions>
-                                                                       <ColumnDefinition Width="Auto"/>
-                                                                       <ColumnDefinition Width="*"/>
-                                                                       <ColumnDefinition Width="Auto"/>
-                                                                   </Grid.ColumnDefinitions>
-                                                                   
-                                                                   <Border 
-                                                                       Grid.Column="0" 
-                                                                       Width="100" 
-                                                                       Height="100" 
-                                                                       BorderBrush="Gray"
-                                                                       BorderThickness="1"
-                                                                       Margin="0,0,10,0"
-                                                                       >
-                                                                       <Image 
-                                                                           Source="{Binding Photo, Converter={StaticResource PhotoConverter}}"
-                                                                           Stretch="Uniform"
-                                                                           />
-                                                                   </Border>
-                                                                   
-                                                                   <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                                       <TextBlock FontWeight="Bold">
-                                                                           <Run Text="{Binding Category.Name}"/>
-                                                                           <Run Text="|"/>
-                                                                           <Run Text="{Binding Name}"/>
-                                                                       </TextBlock>
-                                                                       <TextBlock Text="{Binding Description, StringFormat='Описание: {0}'}"/>
-                                                                       <TextBlock Text="{Binding Supplier.Name, StringFormat='Поставщик: {0}'}"/>
-                                                                       <TextBlock Text="{Binding Manufacturer.Name, StringFormat='Производитель: {0}'}"/>
+                        Grid.Row="2"
+                        ItemsSource="{Binding Products}"
+                        SelectedItem="{Binding SelectedProduct}"
+                        Background="White"
+                        HorizontalContentAlignment="Stretch"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    BorderBrush="Gray"
+                                    BorderThickness="1"
+                                    Margin="4"
+                                    Padding="6"
+                                    Background="{Binding Converter={StaticResource RawBackgroundConverter}}"
+                                    >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border 
+                                            Grid.Column="0" 
+                                            Width="100" 
+                                            Height="100" 
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            Margin="0,0,10,0"
+                                        >
+                                            <Image 
+                                                Source="{Binding Photo, Converter={StaticResource PhotoConverter}}"
+                                                Stretch="Uniform"
+                                                />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock FontWeight="Bold">
+                                                <Run Text="{Binding Category.Name}"/>
+                                                <Run Text="|"/>
+                                                <Run Text="{Binding Name}"/>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding Description, StringFormat='Описание: {0}'}"/>
+                                            <TextBlock Text="{Binding Supplier.Name, StringFormat='Поставщик: {0}'}"/>
+                                            <TextBlock Text="{Binding Manufacturer.Name, StringFormat='Производитель: {0}'}"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Цена: "/>
+                                                <TextBlock
+                                                    Text="{Binding Price, StringFormat='{}{0:N2}'}"
+                                                    Foreground="Red"
+                                                    TextDecorations="Strikethrough"
+                                                    Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=discount}"
+                                                />
+                                                <TextBlock
+                                                    Text="{Binding Price, StringFormat='{}{0:N2}'}"
+                                                    Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=normal}"
+                                                />
+                                                <TextBlock
+                                                    Text="{Binding Converter={StaticResource FinalPriceConverter}, StringFormat='{}{0:N2}'}"
+                                                    Background="Black"
+                                                    Foreground="White"
+                                                    Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=discount}"
+                                                />
+                                            </StackPanel>
                                                                        
-                                                                       <StackPanel Orientation="Horizontal">
-                                                                           <TextBlock Text="Цена: "/>
-                                                                           <TextBlock
-                                                                               Text="{Binding Price, StringFormat='{}{0:N2}'}"
-                                                                               Foreground="Red"
-                                                                               TextDecorations="Strikethrough"
-                                                                               Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=discount}"
-                                                                               />
-                                                                           <TextBlock
-                                                                               Text="{Binding Price, StringFormat='{}{0:N2}'}"
-                                                                               Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=normal}"
-                                                                           />
-                                                                           <TextBlock
-                                                                               Text="{Binding Converter={StaticResource FinalPriceConverter}, StringFormat='{}{0:N2}'}"
-                                                                               Background="Black"
-                                                                               Foreground="White"
-                                                                               Visibility="{Binding Discount, Converter={StaticResource PriceConverter}, ConverterParameter=discount}"
-                                                                           />
-                                                                       </StackPanel>
-                                                                       
-                                                                       <TextBlock Text="{Binding Unit.Name, StringFormat='Единица измерения: {0}'}"/>
-                                                                       <TextBlock Text="{Binding Quantity, StringFormat='Количество на складе: {0}'}"/>
-                                                                   </StackPanel>
-                                                                   
-                                                                   <Border 
-                                                                       Grid.Column="2"
-                                                                       BorderBrush="Gray"
-                                                                       BorderThickness="1"
-                                                                       VerticalAlignment="Stretch"
-                                                                       Padding="8"
-                                                                       >
-                                                                       <TextBlock Text="{Binding Discount, StringFormat='Скидка: {0}%'}"/>
-                                                                   </Border>
-                                                               </Grid>
-                                                           </Border>
-                                                       </DataTemplate>
-                                                   </ListBox.ItemTemplate>
-                                               </ListBox>
+                                            <TextBlock Text="{Binding Unit.Name, StringFormat='Единица измерения: {0}'}"/>
+                                            <TextBlock Text="{Binding Quantity, StringFormat='Количество на складе: {0}'}"/>
+                                        </StackPanel>
+                                        <Border 
+                                            Grid.Column="2"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            VerticalAlignment="Stretch"
+                                            Padding="8"
+                                        >
+                                            <TextBlock Text="{Binding Discount, StringFormat='Скидка: {0}%'}"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Заказы">

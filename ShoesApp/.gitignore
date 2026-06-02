@@ -1,0 +1,13 @@
+﻿
+bin/
+obj/
+
+*.user
+*.suo
+.vs/
+
+*.nupkg
+packages/
+project.lock.json
+
+.idea/
